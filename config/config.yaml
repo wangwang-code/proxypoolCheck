@@ -17,3 +17,6 @@ healthcheck_connection: # default 100
 speedtest:              # default false
 speed_connection:       # default 5
 speed_timeout:          # default 10
+
+proxy_enable:           # default false
+proxy_address: 192.168.0.170:10809 # The format is ip:port

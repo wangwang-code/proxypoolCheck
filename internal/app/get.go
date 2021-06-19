@@ -13,14 +13,13 @@ import (
 	"time"
     "net/url"
 )
-//http代理地址
-var proxyConf = "192.168.0.170:10809"
+
 
 func buildHtppClient(isProxy bool) *http.Client {
 	var proxy func(*http.Request) (*url.URL, error) = nil
 	if isProxy {
 		proxy = func(_ *http.Request) (*url.URL, error) {
-			return url.Parse("http://" + proxyConf)
+			return url.Parse("http://" + config.Config.ProxyAddress)
 		}
 	}
 	transport := &http.Transport{
@@ -113,7 +112,7 @@ func getProxies(url string) ([]string, error) {
 //		Timeout: 5 * time.Second,
 //		Transport: tr,
 //	}
-    client := buildHtppClient(true)
+    client := buildHtppClient(config.Config.ProxyEnable)
 	resp, err := client.Get(url)
 	if err != nil {
 		return nil, err

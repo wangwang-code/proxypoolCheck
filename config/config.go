@@ -13,6 +13,8 @@ var configFilePath = "config.yaml"
 
 // ConfigOptions is a struct that represents config files
 type ConfigOptions struct {
+    ProxyEnable        bool     `json:"proxy_enable" yaml:"proxy_enable"`
+	ProxyAddress       string   `json:"proxy_address" yaml:"proxy_address"`
 	ServerUrl          []string `json:"server_url" yaml:"server_url"`
 	Domain             string   `json:"domain" yaml:"domain"`
 	Port               string   `json:"port" yaml:"port"`
