@@ -11,7 +11,30 @@ import (
 	"net/http"
 	"strings"
 	"time"
+    "net/url"
 )
+//http代理地址
+var proxyConf = "192.168.0.170:10809"
+
+func buildHtppClient(isProxy bool) *http.Client {
+	var proxy func(*http.Request) (*url.URL, error) = nil
+	if isProxy {
+		proxy = func(_ *http.Request) (*url.URL, error) {
+			return url.Parse("http://" + proxyConf)
+		}
+	}
+	transport := &http.Transport{
+			TLSClientConfig: &tls.Config{
+    			InsecureSkipVerify: true,
+	},
+	Proxy: proxy,
+	}
+	client := &http.Client{
+	Timeout: 5 * time.Second,
+	Transport: transport,
+	}
+	return client
+}
 
 func getAllProxies() (proxy.ProxyList, error) {
 	var proxylist proxy.ProxyList
@@ -79,16 +102,18 @@ func formatURL(value string) string {
 // get proxy strings from url
 func getProxies(url string) ([]string, error) {
 	//resp, err := http.Get(url)
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
+//	tr := &http.Transport{
+//		TLSClientConfig: &tls.Config{
+//			InsecureSkipVerify: true,
+//		},
+//	Proxy: proxy,
+//	}
 
-	client := &http.Client{
-		Timeout: 5 * time.Second,
-		Transport: tr,
-	}
+//	client := &http.Client{
+//		Timeout: 5 * time.Second,
+//		Transport: tr,
+//	}
+    client := buildHtppClient(true)
 	resp, err := client.Get(url)
 	if err != nil {
 		return nil, err
