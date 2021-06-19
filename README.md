@@ -69,6 +69,9 @@ healthcheck_connection: # default 100
 speedtest:            # default false
 speed_timeout:         # default 10
 speed_connection:     # default 5
+
+proxy_enable:           # default false
+proxy_address: 192.168.0.170:10809 # The format is ip:port
 ```
 
 If your web server port is not the same as proxypoolCheck serving port, you should put web server port in configuration, and set an environment variable `PORT` for proxypoolCheck to serve. This will be really helpful when you are doing frp.
