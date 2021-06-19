@@ -77,6 +77,9 @@ healthcheck_connection: # default 100
 speedtest:            # default false
 speed_connection:     # default 5
 speed_timeout:         # default 10
+
+proxy_enable:           # default false
+proxy_address: 192.168.0.170:10809 # The format is ip:port
 ```
 
 需要修改的参数：
@@ -95,6 +98,8 @@ speed_timeout:         # default 10
 - `speed_timeout`：单个节点测速时间限制，默认值为 10，单位为秒。超过此时间限制的节点会测速失败
 - `healthcheck_timeout`：单个节点健康检测时间限制，默认值为 5，单位为秒。超过此时间限制的节点为无效节点
 - `healthcheck_connection`：节点健康检测并发连接数，默认值为 100。丢失大量可用节点时可大幅减少此项数值。
+- `proxy_enable`：是否使用http代理连接proxypool服务器
+- `proxy_address`：http代理服务器的地址，格式为 `ip:端口` 如 `proxy_address: 192.168.0.170:10809`
 
 
 如果您的Web服务器端口与proxypoolCheck服务端口不同，应该将web服务器端口放在配置中，并且设置环境变量`PORT`以供proxypoolCheck服务。当您使用frp时，这将非常有帮助。
